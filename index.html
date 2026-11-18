@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#2e7d32" />
+<title>Bilancia Ricette</title>
+<link rel="manifest" href="manifest.json" />
+<style>
+  :root { --verde:#2e7d32; --bg:#f6f7f4; --card:#fff; --testo:#1d1d1b; --bordo:#d9ddd5; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, Roboto, sans-serif; background:var(--bg); color:var(--testo); }
+  header { background:var(--verde); color:#fff; padding:14px 16px; font-size:1.2rem; font-weight:600; position:sticky; top:0; }
+  main { max-width:720px; margin:0 auto; padding:12px; }
+  section { background:var(--card); border:1px solid var(--bordo); border-radius:12px; padding:14px; margin-bottom:12px; }
+  h2 { margin:0 0 10px; font-size:1.05rem; }
+  label { display:block; font-size:.85rem; margin:6px 0 2px; color:#555; }
+  input, select { width:100%; padding:10px; font-size:1rem; border:1px solid var(--bordo); border-radius:8px; }
+  .riga { display:grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr auto; gap:6px; align-items:end; margin-bottom:8px; }
+  .riga input { padding:8px; font-size:.9rem; }
+  .riga button { padding:8px 10px; }
+  @media (max-width:560px) {
+    .riga { grid-template-columns: 1fr 1fr; }
+    .riga .nome { grid-column: 1 / -1; }
+  }
+  .btn { background:var(--verde); color:#fff; border:0; border-radius:8px; padding:11px 14px; font-size:1rem; cursor:pointer; margin:4px 4px 4px 0; }
+  .btn.secondo { background:#fff; color:var(--verde); border:1px solid var(--verde); }
+  .btn.piccolo { background:#b71c1c; padding:8px 10px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .kpi { background:#eef5ee; border-radius:8px; padding:10px; }
+  .kpi b { display:block; font-size:1.2rem; }
+  .suggerimento { background:#fff8e1; border-left:4px solid #f9a825; padding:10px; border-radius:6px; margin-top:10px; }
+  .errore { color:#b71c1c; font-weight:600; }
+  small { color:#666; }
+</style>
+</head>
+<body>
+<header>Bilancia Ricette</header>
+<main>
+
+  <section>
+    <h2>Ricetta</h2>
+    <label for="titolo">Nome</label>
+    <input id="titolo" placeholder="Es. Pasta al pollo" />
+    <div class="grid2">
+      <div>
+        <label for="porzioni">Porzioni di base</label>
+        <input id="porzioni" type="number" min="0.5" step="0.5" value="2" />
+      </div>
+      <div>
+        <label for="scalaPorzioni">Scala a porzioni</label>
+        <input id="scalaPorzioni" type="number" min="0.5" step="0.5" value="4" />
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Ingredienti</h2>
+    <small>Valori nutrizionali per 100 g. Il prezzo è facoltativo (€/kg).</small>
+    <div id="righe"></div>
+    <button class="btn secondo" id="aggiungi">+ Ingrediente</button>
+  </section>
+
+  <section>
+    <h2>Obiettivo di bilanciamento (% di kcal)</h2>
+    <div class="grid2">
+      <div><label for="tP">Proteine %</label><input id="tP" type="number" value="25" /></div>
+      <div><label for="tC">Carboidrati %</label><input id="tC" type="number" value="50" /></div>
+      <div><label for="tF">Grassi %</label><input id="tF" type="number" value="25" /></div>
+    </div>
+    <small>I tre valori devono sommare 100.</small>
+  </section>
+
+  <section>
+    <button class="btn" id="calcola">Calcola</button>
+    <button class="btn secondo" id="bilancia">Suggerisci bilanciamento</button>
+    <button class="btn secondo" id="salva">Salva ricetta</button>
+    <label for="elenco">Ricette salvate</label>
+    <div style="display:flex; gap:6px;">
+      <select id="elenco"></select>
+      <button class="btn secondo" id="carica">Carica</button>
+      <button class="btn piccolo" id="elimina">Elimina</button>
+    </div>
+    <div id="esito"></div>
+  </section>
+
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>
